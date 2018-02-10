@@ -34,7 +34,12 @@ object PartyPlanner extends App {
     *
     *         price should be Price("apple", 1.5)
     */
-  def parsePrices: List[Price] = ???
+  def parsePrices: List[Price] = {
+    loadDataFromFile("/price.txt").map{ e =>
+        val arr = e.split(";")
+        Price(arr(0), arr(1).toDouble)
+    }
+  }
 
   /**
     * @return List[Consumption] containing consumptions from file in resource
@@ -44,7 +49,12 @@ object PartyPlanner extends App {
     *
     *         consumption should be Consumption("apple", 0.5)
     */
-  def parseConsumptions: List[Consumption] = ???
+  def parseConsumptions: List[Consumption] = {loadDataFromFile("/consumption.txt").map{
+      e =>
+        val arr = e.split(";")
+        Consumption(arr(0), arr(1).toDouble)
+    }
+  }
 
   /**
     * @return List[Party] containing Party from file in resource
@@ -55,7 +65,23 @@ object PartyPlanner extends App {
     *
     *         party should be Party("birthday", List("coffee", "cola"))
     */
-  def parseParties: List[Party] = ???
+  def parseParties: List[Party] = {
+   loadDataFromFile("/party.txt").map{
+      e =>
+        val arr = e.split(";")
+        (arr(0), arr(1))
+    }.groupBy(_._1).map{case(partyName, values) =>
+      Party(partyName, values.map(e => e._2))
+    }.toList
+  }
+
+
+  /*
+    List(("birthday", "cake"), ("birthday","cola")).groupBy(_._1)
+    Map("Birthday"-> List(("Birthday", "cake"),("birthday", "cola"))).map{
+    case(partyName, values) =>
+      Party(partyName, values.map(e=>e._2))}
+  */
 
   /**
     * Let's run some tests!
@@ -87,7 +113,11 @@ object PartyPlanner extends App {
     *         1 -> Party("party2", List("product2"))
     *         )
     */
-  def getAvailableParties(parties: List[Party]) = ???
+  def getAvailableParties(parties: List[Party]): Map[Int, Party] = {
+    parties.zipWithIndex.map{ case (party, index) =>
+      (ind, party)}toMap
+    }
+  }
 
   /*
    * step 1. Calculate amount to spend for one person for one product.
