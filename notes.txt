@@ -1,0 +1,17 @@
+clone repo
+open project in IntelliJ
+open build.sbt
+install scala plugin as recommended
+to create a worksheet:
+    make a new file rooted at scala dir with extension .sk
+    if no output on right-hand pane - need to configure JDk(not JRE) and SDK as 	suggested
+    if calling the function Party() shows up red, hover over and press Alt + Enter.
+    if that doesn't work, close Intellij and delete cache (there will be a pop-up asking this)
+
+with scala - last object of function is implicity designated as the return
+Scala tuple can have up to 22 elements - why?
+
+Things to google:
+Map function
+group by function
+case keyword
